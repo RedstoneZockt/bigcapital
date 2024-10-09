@@ -37,8 +37,6 @@ services:
       - mongo
       - redis
     restart: on-failure
-    ports:
-      - '10203:3000'
     networks:
       - bigcapital_network
     environment:
