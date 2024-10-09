@@ -28,8 +28,6 @@ services:
   server:
     container_name: bigcapital-server
     image: bigcapitalhq/server:latest
-    expose:
-      - '3000'
     links:
       - mysql
       - mongo
@@ -39,6 +37,8 @@ services:
       - mongo
       - redis
     restart: on-failure
+    ports:
+      - '10203:3000'
     networks:
       - bigcapital_network
     environment:
@@ -154,8 +154,6 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
     volumes:
       - mysql:/var/lib/mysql
-    expose:
-      - '3306'
     networks:
       - bigcapital_network
 
@@ -163,8 +161,6 @@ services:
     container_name: bigcapital-mongo
     restart: on-failure
     build: ./docker/mongo
-    expose:
-      - '27017'
     volumes:
       - mongo:/var/lib/mongodb
     networks:
@@ -175,8 +171,6 @@ services:
     restart: on-failure
     build:
       context: ./docker/redis
-    expose:
-      - '6379'
     volumes:
       - redis:/data
     networks:
@@ -184,8 +178,6 @@ services:
 
   gotenberg:
     image: gotenberg/gotenberg:7
-    expose:
-      - '9000'
     networks:
       - bigcapital_network
 
